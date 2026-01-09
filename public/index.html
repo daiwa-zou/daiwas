@@ -13,32 +13,150 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: #fafafa;
+            background: #e8e8e8;
             color: #1a1a1a;
             min-height: 100vh;
             overflow: hidden;
             position: relative;
         }
 
-        h1 {
-            position: absolute;
-            top: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2.5rem;
-            font-weight: 300;
-            letter-spacing: -0.02em;
-            z-index: 10;
-            pointer-events: none;
+        .office {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            background: linear-gradient(to bottom, #87ceeb 0%, #87ceeb 40%, #e8e8e8 40%);
+            overflow: hidden;
         }
 
+        /* Office floor */
+        .floor {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60%;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 99px,
+                    rgba(0, 0, 0, 0.05) 99px,
+                    rgba(0, 0, 0, 0.05) 100px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 99px,
+                    rgba(0, 0, 0, 0.05) 99px,
+                    rgba(0, 0, 0, 0.05) 100px
+                ),
+                #d3d3d3;
+        }
+
+        /* Windows */
+        .window {
+            position: absolute;
+            background: linear-gradient(to bottom, #87ceeb 0%, #b0e0e6 50%, #87ceeb 100%);
+            border: 3px solid #4a4a4a;
+            border-radius: 4px;
+        }
+
+        .window-left {
+            left: 5%;
+            top: 20%;
+            width: 200px;
+            height: 300px;
+        }
+
+        .window-right {
+            right: 5%;
+            top: 20%;
+            width: 200px;
+            height: 300px;
+        }
+
+        .window-frame {
+            position: absolute;
+            background: #4a4a4a;
+        }
+
+        .window-frame-h {
+            width: 100%;
+            height: 3px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .window-frame-v {
+            width: 3px;
+            height: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Desks */
+        .desk {
+            position: absolute;
+            background: #8b7355;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .desk-top {
+            width: 180px;
+            height: 80px;
+        }
+
+        .desk-leg {
+            position: absolute;
+            background: #654321;
+            width: 8px;
+            height: 60px;
+            bottom: -60px;
+        }
+
+        .desk1 { left: 15%; bottom: 25%; }
+        .desk2 { left: 40%; bottom: 30%; }
+        .desk3 { right: 15%; bottom: 25%; }
+        .desk4 { right: 40%; bottom: 30%; }
+
+        /* Chairs */
+        .chair {
+            position: absolute;
+            width: 50px;
+            height: 60px;
+            background: #654321;
+            border-radius: 8px 8px 4px 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .chair1 { left: 22%; bottom: 20%; }
+        .chair2 { left: 47%; bottom: 25%; }
+        .chair3 { right: 22%; bottom: 20%; }
+        .chair4 { right: 47%; bottom: 25%; }
+
+        /* Title */
+        h1 {
+            position: absolute;
+            top: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            z-index: 100;
+            pointer-events: none;
+            color: #1a1a1a;
+            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+        }
+
+        /* Robots */
         .robot {
             position: absolute;
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             cursor: pointer;
             transition: transform 0.1s ease-out;
-            z-index: 5;
+            z-index: 50;
         }
 
         .robot:active {
@@ -48,7 +166,7 @@
         .robot svg {
             width: 100%;
             height: 100%;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
         }
 
         .mail-robot svg {
@@ -61,30 +179,43 @@
 
         .robot-label {
             position: absolute;
-            bottom: -25px;
+            bottom: -22px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 500;
-            color: #4a4a4a;
+            color: #333;
             white-space: nowrap;
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2px 6px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .robot:hover .robot-label {
             opacity: 1;
         }
 
-        @keyframes robot-wiggle {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(-5deg); }
-            75% { transform: rotate(5deg); }
+        @keyframes robot-walk {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-2px); }
+        }
+
+        @keyframes robot-idle {
+            0%, 100% { transform: rotate(0deg) translateY(0); }
+            25% { transform: rotate(-2deg) translateY(-1px); }
+            75% { transform: rotate(2deg) translateY(-1px); }
         }
 
         .robot.moving svg {
-            animation: robot-wiggle 0.5s ease-in-out infinite;
+            animation: robot-walk 0.6s ease-in-out infinite;
+        }
+
+        .robot.idling svg {
+            animation: robot-idle 2s ease-in-out infinite;
         }
 
         .robot.paused svg {
@@ -93,193 +224,294 @@
     </style>
 </head>
 <body>
-    <h1>Daiwas</h1>
-    
-    <div class="robot mail-robot" id="mailRobot" onclick="handleMailAgent(event)">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <!-- Robot body -->
-            <rect x="20" y="30" width="60" height="50" rx="5" fill="currentColor"/>
-            <!-- Robot head -->
-            <rect x="30" y="10" width="40" height="30" rx="5" fill="currentColor"/>
-            <!-- Eyes -->
-            <circle cx="40" cy="25" r="4" fill="#ffffff"/>
-            <circle cx="60" cy="25" r="4" fill="#ffffff"/>
-            <!-- Eye pupils -->
-            <circle cx="40" cy="25" r="2" fill="#667eea"/>
-            <circle cx="60" cy="25" r="2" fill="#667eea"/>
-            <!-- Mail icon on body -->
-            <path d="M35 45 L50 55 L65 45 L65 65 L35 65 Z" fill="#ffffff" opacity="0.8"/>
-            <path d="M35 45 L50 55 L65 45" stroke="#ffffff" stroke-width="2" fill="none"/>
-            <!-- Arms -->
-            <rect x="10" y="40" width="12" height="30" rx="3" fill="currentColor"/>
-            <rect x="78" y="40" width="12" height="30" rx="3" fill="currentColor"/>
-            <!-- Legs -->
-            <rect x="30" y="80" width="15" height="20" rx="3" fill="currentColor"/>
-            <rect x="55" y="80" width="15" height="20" rx="3" fill="currentColor"/>
-        </svg>
-        <div class="robot-label">Mail Agent</div>
-    </div>
+    <div class="office">
+        <!-- Floor -->
+        <div class="floor"></div>
 
-    <div class="robot calendar-robot" id="calendarRobot" onclick="handleCalendarAgent(event)">
-        <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <!-- Robot body -->
-            <rect x="20" y="30" width="60" height="50" rx="5" fill="currentColor"/>
-            <!-- Robot head -->
-            <rect x="30" y="10" width="40" height="30" rx="5" fill="currentColor"/>
-            <!-- Eyes -->
-            <circle cx="40" cy="25" r="4" fill="#ffffff"/>
-            <circle cx="60" cy="25" r="4" fill="#ffffff"/>
-            <!-- Eye pupils -->
-            <circle cx="40" cy="25" r="2" fill="#f5576c"/>
-            <circle cx="60" cy="25" r="2" fill="#f5576c"/>
-            <!-- Calendar icon on body -->
-            <rect x="35" y="45" width="30" height="25" rx="2" fill="#ffffff" opacity="0.8"/>
-            <line x1="35" y1="52" x2="65" y2="52" stroke="#ffffff" stroke-width="1.5"/>
-            <line x1="42" y1="45" x2="42" y2="70" stroke="#ffffff" stroke-width="1.5"/>
-            <line x1="49" y1="45" x2="49" y2="70" stroke="#ffffff" stroke-width="1.5"/>
-            <line x1="56" y1="45" x2="56" y2="70" stroke="#ffffff" stroke-width="1.5"/>
-            <circle cx="42" cy="59" r="2" fill="#ffffff"/>
-            <circle cx="49" cy="59" r="2" fill="#ffffff"/>
-            <circle cx="56" cy="63" r="2" fill="#ffffff"/>
-            <!-- Arms -->
-            <rect x="10" y="40" width="12" height="30" rx="3" fill="currentColor"/>
-            <rect x="78" y="40" width="12" height="30" rx="3" fill="currentColor"/>
-            <!-- Legs -->
-            <rect x="30" y="80" width="15" height="20" rx="3" fill="currentColor"/>
-            <rect x="55" y="80" width="15" height="20" rx="3" fill="currentColor"/>
-        </svg>
-        <div class="robot-label">Calendar Agent</div>
+        <!-- Windows -->
+        <div class="window window-left">
+            <div class="window-frame window-frame-h"></div>
+            <div class="window-frame window-frame-v"></div>
+        </div>
+        <div class="window window-right">
+            <div class="window-frame window-frame-h"></div>
+            <div class="window-frame window-frame-v"></div>
+        </div>
+
+        <!-- Desks -->
+        <div class="desk desk-top desk1">
+            <div class="desk-leg" style="left: 20px;"></div>
+            <div class="desk-leg" style="right: 20px;"></div>
+            <div class="desk-leg" style="left: 20px; width: 160px; height: 4px; bottom: -60px;"></div>
+        </div>
+        <div class="desk desk-top desk2">
+            <div class="desk-leg" style="left: 20px;"></div>
+            <div class="desk-leg" style="right: 20px;"></div>
+            <div class="desk-leg" style="left: 20px; width: 160px; height: 4px; bottom: -60px;"></div>
+        </div>
+        <div class="desk desk-top desk3">
+            <div class="desk-leg" style="left: 20px;"></div>
+            <div class="desk-leg" style="right: 20px;"></div>
+            <div class="desk-leg" style="left: 20px; width: 160px; height: 4px; bottom: -60px;"></div>
+        </div>
+        <div class="desk desk-top desk4">
+            <div class="desk-leg" style="left: 20px;"></div>
+            <div class="desk-leg" style="right: 20px;"></div>
+            <div class="desk-leg" style="left: 20px; width: 160px; height: 4px; bottom: -60px;"></div>
+        </div>
+
+        <!-- Chairs -->
+        <div class="chair chair1"></div>
+        <div class="chair chair2"></div>
+        <div class="chair chair3"></div>
+        <div class="chair chair4"></div>
+
+        <h1>Daiwas</h1>
+        
+        <!-- Robots -->
+        <div class="robot mail-robot" id="mailRobot" onclick="handleMailAgent(event)">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect x="20" y="30" width="60" height="50" rx="5" fill="currentColor"/>
+                <rect x="30" y="10" width="40" height="30" rx="5" fill="currentColor"/>
+                <circle cx="40" cy="25" r="4" fill="#ffffff"/>
+                <circle cx="60" cy="25" r="4" fill="#ffffff"/>
+                <circle cx="40" cy="25" r="2" fill="#667eea"/>
+                <circle cx="60" cy="25" r="2" fill="#667eea"/>
+                <path d="M35 45 L50 55 L65 45 L65 65 L35 65 Z" fill="#ffffff" opacity="0.8"/>
+                <path d="M35 45 L50 55 L65 45" stroke="#ffffff" stroke-width="2" fill="none"/>
+                <rect x="10" y="40" width="12" height="30" rx="3" fill="currentColor"/>
+                <rect x="78" y="40" width="12" height="30" rx="3" fill="currentColor"/>
+                <rect x="30" y="80" width="15" height="20" rx="3" fill="currentColor"/>
+                <rect x="55" y="80" width="15" height="20" rx="3" fill="currentColor"/>
+            </svg>
+            <div class="robot-label">Mail Agent</div>
+        </div>
+
+        <div class="robot calendar-robot" id="calendarRobot" onclick="handleCalendarAgent(event)">
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect x="20" y="30" width="60" height="50" rx="5" fill="currentColor"/>
+                <rect x="30" y="10" width="40" height="30" rx="5" fill="currentColor"/>
+                <circle cx="40" cy="25" r="4" fill="#ffffff"/>
+                <circle cx="60" cy="25" r="4" fill="#ffffff"/>
+                <circle cx="40" cy="25" r="2" fill="#f5576c"/>
+                <circle cx="60" cy="25" r="2" fill="#f5576c"/>
+                <rect x="35" y="45" width="30" height="25" rx="2" fill="#ffffff" opacity="0.8"/>
+                <line x1="35" y1="52" x2="65" y2="52" stroke="#ffffff" stroke-width="1.5"/>
+                <line x1="42" y1="45" x2="42" y2="70" stroke="#ffffff" stroke-width="1.5"/>
+                <line x1="49" y1="45" x2="49" y2="70" stroke="#ffffff" stroke-width="1.5"/>
+                <line x1="56" y1="45" x2="56" y2="70" stroke="#ffffff" stroke-width="1.5"/>
+                <circle cx="42" cy="59" r="2" fill="#ffffff"/>
+                <circle cx="49" cy="59" r="2" fill="#ffffff"/>
+                <circle cx="56" cy="63" r="2" fill="#ffffff"/>
+                <rect x="10" y="40" width="12" height="30" rx="3" fill="currentColor"/>
+                <rect x="78" y="40" width="12" height="30" rx="3" fill="currentColor"/>
+                <rect x="30" y="80" width="15" height="20" rx="3" fill="currentColor"/>
+                <rect x="55" y="80" width="15" height="20" rx="3" fill="currentColor"/>
+            </svg>
+            <div class="robot-label">Calendar Agent</div>
+        </div>
     </div>
 
     <script>
-        class RobotMover {
-            constructor(robotElement, minSpeed = 0.5, maxSpeed = 2) {
+        class OfficeRobot {
+            constructor(robotElement, minSpeed = 0.3, maxSpeed = 0.8) {
                 this.robot = robotElement;
                 this.minSpeed = minSpeed;
                 this.maxSpeed = maxSpeed;
-                this.directionX = Math.random() > 0.5 ? 1 : -1;
-                this.directionY = Math.random() > 0.5 ? 1 : -1;
-                this.speedX = (Math.random() * (maxSpeed - minSpeed) + minSpeed) * this.directionX;
-                this.speedY = (Math.random() * (maxSpeed - minSpeed) + minSpeed) * this.directionY;
+                this.speedX = 0;
+                this.speedY = 0;
+                this.targetX = null;
+                this.targetY = null;
+                this.idleTime = 0;
+                this.isIdling = false;
                 this.paused = false;
-                this.isMoving = true;
-                this.robot.classList.add('moving');
+                this.currentPath = [];
+                this.pathIndex = 0;
+                
+                // Office boundaries (avoid walls, desks, chairs)
+                this.floorArea = {
+                    minX: 50,
+                    maxX: window.innerWidth - 130,
+                    minY: window.innerHeight * 0.4,
+                    maxY: window.innerHeight - 100
+                };
+                
                 this.initializePosition();
-                this.updatePosition();
+                this.startIdle();
+                this.update();
             }
 
             initializePosition() {
-                const maxX = window.innerWidth - 100;
-                const maxY = window.innerHeight - 100;
-                const x = Math.random() * maxX;
-                const y = Math.random() * maxY;
+                const x = this.floorArea.minX + Math.random() * (this.floorArea.maxX - this.floorArea.minX);
+                const y = this.floorArea.minY + Math.random() * (this.floorArea.maxY - this.floorArea.minY);
                 this.robot.style.left = x + 'px';
                 this.robot.style.top = y + 'px';
+                this.speedX = 0;
+                this.speedY = 0;
             }
 
-            updatePosition() {
+            setTarget(x, y) {
+                this.targetX = Math.max(this.floorArea.minX, Math.min(this.floorArea.maxX, x));
+                this.targetY = Math.max(this.floorArea.minY, Math.min(this.floorArea.maxY, y));
+                
+                const currentX = parseFloat(this.robot.style.left) || this.floorArea.minX;
+                const currentY = parseFloat(this.robot.style.top) || this.floorArea.minY;
+                
+                const dx = this.targetX - currentX;
+                const dy = this.targetY - currentY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance > 5) {
+                    const speed = this.minSpeed + Math.random() * (this.maxSpeed - this.minSpeed);
+                    this.speedX = (dx / distance) * speed;
+                    this.speedY = (dy / distance) * speed;
+                    this.isIdling = false;
+                    this.robot.classList.remove('idling');
+                    this.robot.classList.add('moving');
+                }
+            }
+
+            startIdle() {
+                // Sometimes idle in place
+                if (Math.random() < 0.3) {
+                    this.idleTime = 2000 + Math.random() * 3000; // Idle 2-5 seconds
+                    this.isIdling = true;
+                    this.speedX = 0;
+                    this.speedY = 0;
+                    this.targetX = null;
+                    this.targetY = null;
+                    this.robot.classList.remove('moving');
+                    this.robot.classList.add('idling');
+                } else {
+                    // Pick a random destination in the office
+                    const x = this.floorArea.minX + Math.random() * (this.floorArea.maxX - this.floorArea.minX);
+                    const y = this.floorArea.minY + Math.random() * (this.floorArea.maxY - this.floorArea.minY);
+                    this.setTarget(x, y);
+                }
+            }
+
+            update() {
                 if (this.paused) {
-                    requestAnimationFrame(() => this.updatePosition());
+                    requestAnimationFrame(() => this.update());
                     return;
                 }
 
-                const rect = this.robot.getBoundingClientRect();
-                const maxX = window.innerWidth - rect.width;
-                const maxY = window.innerHeight - rect.height;
+                let currentX = parseFloat(this.robot.style.left) || this.floorArea.minX;
+                let currentY = parseFloat(this.robot.style.top) || this.floorArea.minY;
 
-                let x = parseFloat(this.robot.style.left) || Math.random() * maxX;
-                let y = parseFloat(this.robot.style.top) || Math.random() * maxY;
+                if (this.isIdling) {
+                    this.idleTime -= 16; // ~60fps
+                    if (this.idleTime <= 0) {
+                        this.startIdle();
+                    }
+                } else if (this.targetX !== null && this.targetY !== null) {
+                    const dx = this.targetX - currentX;
+                    const dy = this.targetY - currentY;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
 
-                x += this.speedX;
-                y += this.speedY;
+                    if (distance < 10) {
+                        // Reached target, start idling
+                        this.startIdle();
+                    } else {
+                        // Move towards target
+                        currentX += this.speedX;
+                        currentY += this.speedY;
 
-                // Bounce off walls
-                if (x <= 0 || x >= maxX) {
-                    this.speedX = -this.speedX;
-                    x = Math.max(0, Math.min(x, maxX));
+                        // Keep within bounds
+                        currentX = Math.max(this.floorArea.minX, Math.min(this.floorArea.maxX, currentX));
+                        currentY = Math.max(this.floorArea.minY, Math.min(this.floorArea.maxY, currentY));
+                    }
+                } else {
+                    // No target, pick a new one
+                    this.startIdle();
                 }
-                if (y <= 0 || y >= maxY) {
-                    this.speedY = -this.speedY;
-                    y = Math.max(0, Math.min(y, maxY));
-                }
 
-                this.robot.style.left = x + 'px';
-                this.robot.style.top = y + 'px';
+                this.robot.style.left = currentX + 'px';
+                this.robot.style.top = currentY + 'px';
 
-                requestAnimationFrame(() => this.updatePosition());
+                requestAnimationFrame(() => this.update());
             }
 
             pause() {
                 this.paused = true;
-                this.robot.classList.remove('moving');
+                this.robot.classList.remove('moving', 'idling');
                 this.robot.classList.add('paused');
             }
 
             resume() {
                 this.paused = false;
-                this.robot.classList.remove('paused');
-                this.robot.classList.add('moving');
+                this.startIdle();
             }
 
             changeDirection() {
-                this.speedX = (Math.random() * (this.maxSpeed - this.minSpeed) + this.minSpeed) * 
-                             (Math.random() > 0.5 ? 1 : -1);
-                this.speedY = (Math.random() * (this.maxSpeed - this.minSpeed) + this.minSpeed) * 
-                             (Math.random() > 0.5 ? 1 : -1);
+                this.startIdle();
             }
         }
 
-        // Initialize robots
-        const mailRobot = new RobotMover(document.getElementById('mailRobot'), 0.8, 2.5);
-        const calendarRobot = new RobotMover(document.getElementById('calendarRobot'), 0.6, 2.2);
+        // Initialize robots when page loads
+        let mailRobot, calendarRobot;
 
-        // Pause robots when hovering
-        document.getElementById('mailRobot').addEventListener('mouseenter', () => {
-            mailRobot.pause();
-        });
-        document.getElementById('mailRobot').addEventListener('mouseleave', () => {
-            mailRobot.resume();
-        });
-
-        document.getElementById('calendarRobot').addEventListener('mouseenter', () => {
-            calendarRobot.pause();
-        });
-        document.getElementById('calendarRobot').addEventListener('mouseleave', () => {
-            calendarRobot.resume();
-        });
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            const mailRect = document.getElementById('mailRobot').getBoundingClientRect();
-            const calRect = document.getElementById('calendarRobot').getBoundingClientRect();
+        function initRobots() {
+            mailRobot = new OfficeRobot(document.getElementById('mailRobot'), 0.4, 1.0);
+            calendarRobot = new OfficeRobot(document.getElementById('calendarRobot'), 0.3, 0.9);
             
-            if (mailRect.right > window.innerWidth || mailRect.bottom > window.innerHeight) {
-                const maxX = window.innerWidth - mailRect.width;
-                const maxY = window.innerHeight - mailRect.height;
-                document.getElementById('mailRobot').style.left = Math.min(parseFloat(document.getElementById('mailRobot').style.left) || 0, maxX) + 'px';
-                document.getElementById('mailRobot').style.top = Math.min(parseFloat(document.getElementById('mailRobot').style.top) || 0, maxY) + 'px';
-            }
-            
-            if (calRect.right > window.innerWidth || calRect.bottom > window.innerHeight) {
-                const maxX = window.innerWidth - calRect.width;
-                const maxY = window.innerHeight - calRect.height;
-                document.getElementById('calendarRobot').style.left = Math.min(parseFloat(document.getElementById('calendarRobot').style.left) || 0, maxX) + 'px';
-                document.getElementById('calendarRobot').style.top = Math.min(parseFloat(document.getElementById('calendarRobot').style.top) || 0, maxY) + 'px';
-            }
-        });
+            // Update floor area on resize
+            window.addEventListener('resize', () => {
+                if (mailRobot) {
+                    mailRobot.floorArea = {
+                        minX: 50,
+                        maxX: window.innerWidth - 130,
+                        minY: window.innerHeight * 0.4,
+                        maxY: window.innerHeight - 100
+                    };
+                }
+                if (calendarRobot) {
+                    calendarRobot.floorArea = {
+                        minX: 50,
+                        maxX: window.innerWidth - 130,
+                        minY: window.innerHeight * 0.4,
+                        maxY: window.innerHeight - 100
+                    };
+                }
+            });
+
+            // Pause robots when hovering
+            document.getElementById('mailRobot').addEventListener('mouseenter', () => {
+                mailRobot.pause();
+            });
+            document.getElementById('mailRobot').addEventListener('mouseleave', () => {
+                mailRobot.resume();
+            });
+
+            document.getElementById('calendarRobot').addEventListener('mouseenter', () => {
+                calendarRobot.pause();
+            });
+            document.getElementById('calendarRobot').addEventListener('mouseleave', () => {
+                calendarRobot.resume();
+            });
+        }
+
+        // Wait for page to load
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initRobots);
+        } else {
+            initRobots();
+        }
 
         function handleMailAgent(event) {
             event.preventDefault();
-            mailRobot.changeDirection();
+            if (mailRobot) {
+                mailRobot.changeDirection();
+            }
             console.log('Mail agent clicked');
-            // Add your mail agent interaction logic here
         }
 
         function handleCalendarAgent(event) {
             event.preventDefault();
-            calendarRobot.changeDirection();
+            if (calendarRobot) {
+                calendarRobot.changeDirection();
+            }
             console.log('Calendar agent clicked');
-            // Add your calendar agent interaction logic here
         }
     </script>
 </body>
