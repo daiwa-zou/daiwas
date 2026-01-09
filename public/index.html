@@ -164,7 +164,17 @@
                 this.paused = false;
                 this.isMoving = true;
                 this.robot.classList.add('moving');
+                this.initializePosition();
                 this.updatePosition();
+            }
+
+            initializePosition() {
+                const maxX = window.innerWidth - 100;
+                const maxY = window.innerHeight - 100;
+                const x = Math.random() * maxX;
+                const y = Math.random() * maxY;
+                this.robot.style.left = x + 'px';
+                this.robot.style.top = y + 'px';
             }
 
             updatePosition() {
