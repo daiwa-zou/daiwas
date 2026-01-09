@@ -12,884 +12,226 @@
         }
 
         body {
-            font-family: 'Courier New', monospace;
-            background: #2a1a4a;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #fff;
             min-height: 100vh;
             overflow: hidden;
             position: relative;
-            image-rendering: pixelated;
-            image-rendering: -moz-crisp-edges;
-            image-rendering: crisp-edges;
-        }
-
-        .office {
-            width: 100%;
-            height: 100vh;
-            position: relative;
-            background: #2a1a4a;
-            overflow: hidden;
-        }
-
-        /* Ceiling */
-        .ceiling {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 25%;
-            background: 
-                repeating-linear-gradient(
-                    0deg,
-                    #1a0a2a 0px,
-                    #1a0a2a 19px,
-                    #2a1a4a 19px,
-                    #2a1a4a 20px
-                ),
-                repeating-linear-gradient(
-                    90deg,
-                    #1a0a2a 0px,
-                    #1a0a2a 19px,
-                    #2a1a4a 19px,
-                    #2a1a4a 20px
-                ),
-                #1a0a2a;
-        }
-
-        /* Fluorescent lights */
-        .light {
-            position: absolute;
-            background: #fff9c4;
-            box-shadow: 0 0 30px rgba(255, 249, 196, 0.6), inset 0 0 10px rgba(255, 249, 196, 0.8);
-            border-radius: 2px;
-        }
-
-        .light-1 {
-            left: 15%;
-            top: 10%;
-            width: 150px;
-            height: 25px;
-        }
-
-        .light-2 {
-            right: 15%;
-            top: 10%;
-            width: 150px;
-            height: 25px;
-        }
-
-        /* Walls */
-        .wall {
-            position: absolute;
-            background: #f5f5dc;
-        }
-
-        .wall-back {
-            top: 25%;
-            width: 100%;
-            height: 15%;
-            border-bottom: 2px solid #8b7355;
-        }
-
-        .wall-left {
-            left: 0;
-            top: 25%;
-            width: 10%;
-            height: 75%;
-            border-right: 2px solid #8b7355;
-        }
-
-        .wall-right {
-            right: 0;
-            top: 25%;
-            width: 10%;
-            height: 75%;
-            border-left: 2px solid #8b7355;
-        }
-
-        /* Floor - Purple checkered */
-        .floor {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 60%;
-            background: 
-                repeating-linear-gradient(
-                    0deg,
-                    #6b4c93 0px,
-                    #6b4c93 20px,
-                    #7d5ba6 20px,
-                    #7d5ba6 40px
-                ),
-                repeating-linear-gradient(
-                    90deg,
-                    #6b4c93 0px,
-                    #6b4c93 20px,
-                    #7d5ba6 20px,
-                    #7d5ba6 40px
-                );
-            background-color: #6b4c93;
-        }
-
-        /* Windows - Left side */
-        .window-left {
-            position: absolute;
-            left: 2%;
-            top: 30%;
-            width: 6%;
-            height: 50%;
-        }
-
-        .window-arch {
-            position: absolute;
-            background: #1a3a5a;
-            border: 2px solid #4a4a4a;
-            border-radius: 50% 50% 0 0;
-        }
-
-        .window-arch-1 {
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 50%;
-        }
-
-        .window-arch-2 {
-            left: 50%;
-            top: 0;
-            width: 100%;
-            height: 50%;
-        }
-
-        .window-arch-3 {
-            left: 100%;
-            top: 0;
-            width: 100%;
-            height: 50%;
-        }
-
-        /* Cityscape in windows */
-        .cityscape {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 60%;
-            background: linear-gradient(to top, #1a3a5a 0%, #2a4a6a 100%);
-        }
-
-        .building {
-            position: absolute;
-            bottom: 0;
-            background: #8b4a9a;
-        }
-
-        .building-1 { left: 10%; width: 15px; height: 40%; background: #ff69b4; }
-        .building-2 { left: 30%; width: 20px; height: 60%; background: #90ee90; }
-        .building-3 { left: 50%; width: 18px; height: 55%; background: #9370db; }
-        .window-glow {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: #fff9c4;
-        }
-
-        .moon {
-            position: absolute;
-            left: 15%;
-            top: 20%;
-            width: 25px;
-            height: 25px;
-            background: #fff9c4;
-            border-radius: 50%;
-            box-shadow: 0 0 10px rgba(255, 249, 196, 0.8);
-        }
-
-        /* Back window */
-        .window-back {
-            position: absolute;
-            right: 15%;
-            top: 30%;
-            width: 25%;
-            height: 40%;
-            background: #1a3a5a;
-            border: 3px solid #4a4a4a;
-        }
-
-        .window-back .cityscape {
-            width: 100%;
-        }
-
-        .building-b1 { left: 5%; width: 20px; height: 70%; background: #ff6b6b; }
-        .building-b2 { left: 25%; width: 25px; height: 80%; background: #90ee90; }
-        .building-b3 { left: 50%; width: 22px; height: 75%; background: #f5f5dc; }
-        .building-b4 { left: 75%; width: 20px; height: 65%; background: #ff69b4; }
-
-        /* Sign */
-        .sign {
-            position: absolute;
-            right: 15%;
-            top: 27%;
-            width: 25%;
-            height: 5%;
-            background: #1a3a5a;
-            border: 2px solid #4a4a4a;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            letter-spacing: 2px;
         }
 
-        /* Clock */
-        .clock {
-            position: absolute;
-            right: 8%;
-            top: 35%;
-            width: 50px;
-            height: 50px;
-            background: #fff;
-            border: 3px solid #4a4a4a;
-            border-radius: 50%;
-        }
-
-        .clock-hand {
-            position: absolute;
-            background: #000;
-            transform-origin: bottom center;
-        }
-
-        .clock-hand-hour {
-            left: 50%;
-            bottom: 50%;
-            width: 2px;
-            height: 35%;
-            transform: translateX(-50%) rotate(210deg);
-        }
-
-        .clock-hand-minute {
-            left: 50%;
-            bottom: 50%;
-            width: 2px;
-            height: 45%;
-            transform: translateX(-50%) rotate(270deg);
-        }
-
-        .clock-center {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            width: 4px;
-            height: 4px;
-            background: #000;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        /* Desks */
-        .desk {
-            position: absolute;
-            background: #8b7355;
-            border: 2px solid #654321;
-        }
-
-        .desk-1 { left: 12%; bottom: 20%; width: 120px; height: 60px; }
-        .desk-2 { left: 35%; bottom: 25%; width: 120px; height: 60px; }
-        .desk-3 { right: 35%; bottom: 25%; width: 120px; height: 60px; }
-        .desk-4 { right: 12%; bottom: 20%; width: 120px; height: 60px; }
-
-        .desk-drawer {
-            position: absolute;
-            background: #654321;
-            border: 1px solid #432109;
-        }
-
-        .drawer-left {
-            left: 5px;
-            bottom: -25px;
-            width: 25px;
-            height: 25px;
-        }
-
-        .drawer-right {
-            right: 5px;
-            bottom: -25px;
-            width: 25px;
-            height: 25px;
-        }
-
-        /* Chairs */
-        .chair {
-            position: absolute;
-            width: 40px;
-            height: 50px;
-            background: #6b4c93;
-            border: 2px solid #4a2a6a;
-            border-radius: 4px 4px 2px 2px;
-        }
-
-        .chair-back {
-            position: absolute;
-            bottom: 0;
+        .container {
+            position: relative;
             width: 100%;
-            height: 40%;
-            background: #7d5ba6;
-            border-radius: 4px 4px 0 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .chair-1 { left: 18%; bottom: 18%; }
-        .chair-2 { left: 41%; bottom: 23%; }
-        .chair-3 { right: 41%; bottom: 23%; }
-        .chair-4 { right: 18%; bottom: 18%; }
-
-        /* Monitors */
-        .monitor {
+        h1 {
             position: absolute;
-            background: #2a2a2a;
-            border: 2px solid #000;
-            border-radius: 2px 2px 0 0;
-        }
-
-        .monitor-screen {
-            position: absolute;
-            background: #000;
-            border: 1px solid #0a0;
-        }
-
-        .monitor-text {
-            position: absolute;
-            color: #0f0;
-            font-family: 'Courier New', monospace;
-            font-size: 8px;
-            line-height: 1.2;
-            padding: 2px;
-            white-space: pre;
-        }
-
-        .monitor-1 { left: 15%; bottom: 22%; width: 50px; height: 40px; }
-        .monitor-1 .monitor-screen { left: 5px; top: 8px; width: 40px; height: 28px; }
-        .monitor-1 .monitor-text { left: 5px; top: 8px; }
-
-        .monitor-2 { left: 38%; bottom: 27%; width: 50px; height: 40px; }
-        .monitor-2 .monitor-screen { left: 5px; top: 8px; width: 40px; height: 28px; }
-        .monitor-2 .monitor-text { left: 5px; top: 8px; }
-
-        .monitor-3 { right: 38%; bottom: 27%; width: 50px; height: 40px; }
-        .monitor-3 .monitor-screen { left: 5px; top: 8px; width: 40px; height: 28px; }
-        .monitor-3 .monitor-text { left: 5px; top: 8px; }
-
-        .monitor-4 { right: 15%; bottom: 22%; width: 50px; height: 40px; }
-        .monitor-4 .monitor-screen { left: 5px; top: 8px; width: 40px; height: 28px; }
-        .monitor-4 .monitor-text { left: 5px; top: 8px; }
-
-        /* Plant */
-        .plant {
-            position: absolute;
-            right: 42%;
-            bottom: 25%;
-            width: 25px;
-            height: 40px;
-        }
-
-        .plant-pot {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 40%;
-            background: #654321;
-            border: 1px solid #432109;
-            border-radius: 2px 2px 0 0;
-        }
-
-        .plant-leaves {
-            position: absolute;
-            bottom: 40%;
-            width: 100%;
-            height: 60%;
-            background: #228b22;
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-        }
-
-        /* Robots */
-        .robot {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            cursor: pointer;
-            z-index: 100;
-            image-rendering: pixelated;
-            image-rendering: -moz-crisp-edges;
-            image-rendering: crisp-edges;
-            transition: transform 0.1s ease;
-            overflow: hidden;
-        }
-
-        .robot:active {
-            transform: scale(0.9);
-        }
-
-        .robot-sprite {
-            width: 100%;
-            height: 100%;
-            background-size: 200px 50px;
-            background-repeat: no-repeat;
-            image-rendering: pixelated;
-            image-rendering: -moz-crisp-edges;
-            image-rendering: crisp-edges;
-            filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
-            background-position: 0 0;
-        }
-
-        .mail-robot .robot-sprite {
-            background-image: url('sprites/mail-robot.svg');
-        }
-
-        .calendar-robot .robot-sprite {
-            background-image: url('sprites/calendar-robot.svg');
-        }
-
-        .robot-label {
-            position: absolute;
-            bottom: -20px;
+            top: 2rem;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 10px;
-            font-weight: bold;
-            color: #fff;
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .bubble {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            z-index: 5;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .bubble:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+        }
+
+        .bubble:active {
+            transform: scale(0.95);
+        }
+
+        .mail-bubble {
+            background: rgba(255, 255, 255, 0.2);
+            left: 20%;
+            top: 30%;
+        }
+
+        .calendar-bubble {
+            background: rgba(255, 255, 255, 0.2);
+            right: 20%;
+            top: 30%;
+        }
+
+        .bubble-label {
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            font-weight: 500;
             white-space: nowrap;
             opacity: 0;
             transition: opacity 0.3s ease;
             pointer-events: none;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 2px 4px;
-            border: 1px solid #fff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        .robot:hover .robot-label {
+        .bubble:hover .bubble-label {
             opacity: 1;
         }
 
-        @keyframes sprite-walk {
-            0% { background-position: 50px 0; }
-            50% { background-position: 100px 0; }
-            100% { background-position: 50px 0; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
         }
 
-        @keyframes sprite-idle {
-            0% { background-position: 0 0; }
-            50% { background-position: 150px 0; }
-            100% { background-position: 0 0; }
-        }
-
-        .robot.moving .robot-sprite {
-            animation: sprite-walk 0.6s steps(2, end) infinite;
-        }
-
-        .robot.idling .robot-sprite {
-            animation: sprite-idle 2s steps(2, end) infinite;
-        }
-
-        .robot.paused .robot-sprite {
-            animation: none;
-            background-position: 0 0;
+        .bubble.moving {
+            animation: float 3s ease-in-out infinite;
         }
     </style>
 </head>
 <body>
-    <div class="office">
-        <!-- Ceiling -->
-        <div class="ceiling">
-            <div class="light light-1"></div>
-            <div class="light light-2"></div>
+    <div class="container">
+        <h1>Daiwas</h1>
+        
+        <div class="bubble mail-bubble" id="mailBubble" onclick="handleMailAgent(event)">
+            ✉️
+            <div class="bubble-label">Mail Agent</div>
         </div>
 
-        <!-- Walls -->
-        <div class="wall wall-back"></div>
-        <div class="wall wall-left"></div>
-        <div class="wall wall-right"></div>
-
-        <!-- Floor -->
-        <div class="floor"></div>
-
-        <!-- Left Windows -->
-        <div class="window-left">
-            <div class="window-arch window-arch-1">
-                <div class="cityscape">
-                    <div class="moon"></div>
-                    <div class="building building-1"></div>
-                    <div class="building building-2"></div>
-                    <div class="building building-3"></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Back Window -->
-        <div class="window-back">
-            <div class="cityscape">
-                <div class="building building-b1"></div>
-                <div class="building building-b2"></div>
-                <div class="building building-b3"></div>
-                <div class="building building-b4"></div>
-            </div>
-        </div>
-
-        <!-- Sign -->
-        <div class="sign">DAIWAS</div>
-
-        <!-- Clock -->
-        <div class="clock">
-            <div class="clock-hand clock-hand-hour"></div>
-            <div class="clock-hand clock-hand-minute"></div>
-            <div class="clock-center"></div>
-        </div>
-
-        <!-- Desks -->
-        <div class="desk desk-1">
-            <div class="desk-drawer drawer-left"></div>
-            <div class="desk-drawer drawer-right"></div>
-        </div>
-        <div class="desk desk-2">
-            <div class="desk-drawer drawer-left"></div>
-            <div class="desk-drawer drawer-right"></div>
-        </div>
-        <div class="desk desk-3">
-            <div class="desk-drawer drawer-left"></div>
-            <div class="desk-drawer drawer-right"></div>
-        </div>
-        <div class="desk desk-4">
-            <div class="desk-drawer drawer-left"></div>
-            <div class="desk-drawer drawer-right"></div>
-        </div>
-
-        <!-- Chairs -->
-        <div class="chair chair-1"><div class="chair-back"></div></div>
-        <div class="chair chair-2"><div class="chair-back"></div></div>
-        <div class="chair chair-3"><div class="chair-back"></div></div>
-        <div class="chair chair-4"><div class="chair-back"></div></div>
-
-        <!-- Monitors -->
-        <div class="monitor monitor-1">
-            <div class="monitor-screen">
-                <div class="monitor-text">> npm start&#10;> loading...&#10;> ready</div>
-            </div>
-        </div>
-        <div class="monitor monitor-2">
-            <div class="monitor-screen">
-                <div class="monitor-text">const data = {};&#10;data.parse();&#10;return;</div>
-            </div>
-        </div>
-        <div class="monitor monitor-3">
-            <div class="monitor-screen">
-                <div class="monitor-text">function main() {&#10;  run();&#10;}</div>
-            </div>
-        </div>
-        <div class="monitor monitor-4">
-            <div class="monitor-screen">
-                <div class="monitor-text">import sys&#10;sys.exit(0)</div>
-            </div>
-        </div>
-
-        <!-- Plant -->
-        <div class="plant">
-            <div class="plant-pot"></div>
-            <div class="plant-leaves"></div>
-        </div>
-
-        <!-- Robots -->
-        <div class="robot mail-robot" id="mailRobot" onclick="handleMailAgent(event)">
-            <div class="robot-sprite"></div>
-            <div class="robot-label">Mail Agent</div>
-        </div>
-
-        <div class="robot calendar-robot" id="calendarRobot" onclick="handleCalendarAgent(event)">
-            <div class="robot-sprite"></div>
-            <div class="robot-label">Calendar Agent</div>
+        <div class="bubble calendar-bubble" id="calendarBubble" onclick="handleCalendarAgent(event)">
+            📅
+            <div class="bubble-label">Calendar Agent</div>
         </div>
     </div>
 
     <script>
-        class OfficeRobot {
-            constructor(robotElement, minSpeed = 0.2, maxSpeed = 0.6) {
-                this.robot = robotElement;
-                this.minSpeed = minSpeed;
-                this.maxSpeed = maxSpeed;
-                this.speedX = 0;
-                this.speedY = 0;
-                this.targetX = null;
-                this.targetY = null;
-                this.idleTime = 0;
-                this.isIdling = false;
-                this.paused = false;
-                
-                // Office floor area - avoid walls, desks, chairs
-                this.floorArea = {
-                    minX: 100,  // Avoid left wall
-                    maxX: window.innerWidth - 150,  // Avoid right wall
-                    minY: window.innerHeight * 0.4,  // Start from floor level
-                    maxY: window.innerHeight - 100  // Avoid bottom edge
-                };
-                
-                // Areas to avoid (desks and chairs)
-                this.obstacles = [
-                    { x: window.innerWidth * 0.12, y: window.innerHeight * 0.80, width: 120, height: 100 },
-                    { x: window.innerWidth * 0.35, y: window.innerHeight * 0.75, width: 120, height: 100 },
-                    { x: window.innerWidth * 0.53, y: window.innerHeight * 0.75, width: 120, height: 100 },
-                    { x: window.innerWidth * 0.76, y: window.innerHeight * 0.80, width: 120, height: 100 },
-                ];
-                
-                this.initializePosition();
-                this.startIdle();
+        class BubbleGravity {
+            constructor(bubbleElement, centerX, centerY) {
+                this.bubble = bubbleElement;
+                this.centerX = centerX;
+                this.centerY = centerY;
+                this.currentX = parseFloat(bubbleElement.style.left) || window.innerWidth / 4;
+                this.currentY = parseFloat(bubbleElement.style.top) || window.innerHeight / 4;
+                this.velocityX = 0;
+                this.velocityY = 0;
+                this.gravity = 0.02;
+                this.damping = 0.95;
+                this.springStrength = 0.05;
                 this.update();
             }
 
-            initializePosition() {
-                let x, y, valid = false;
-                let attempts = 0;
-                
-                while (!valid && attempts < 50) {
-                    x = this.floorArea.minX + Math.random() * (this.floorArea.maxX - this.floorArea.minX);
-                    y = this.floorArea.minY + Math.random() * (this.floorArea.maxY - this.floorArea.minY);
-                    valid = !this.isColliding(x, y);
-                    attempts++;
-                }
-                
-                this.robot.style.left = x + 'px';
-                this.robot.style.top = y + 'px';
-                this.speedX = 0;
-                this.speedY = 0;
-            }
-
-            isColliding(x, y) {
-                for (const obstacle of this.obstacles) {
-                    if (x < obstacle.x + obstacle.width &&
-                        x + 50 > obstacle.x &&
-                        y < obstacle.y + obstacle.height &&
-                        y + 50 > obstacle.y) {
-                        return true;
-                    }
-                }
-                return false;
-            }
-
-            setTarget(x, y) {
-                // Ensure target is in valid area
-                this.targetX = Math.max(this.floorArea.minX, Math.min(this.floorArea.maxX - 50, x));
-                this.targetY = Math.max(this.floorArea.minY, Math.min(this.floorArea.maxY - 50, y));
-                
-                // Check if target is valid (not colliding)
-                if (this.isColliding(this.targetX, this.targetY)) {
-                    // Find nearby valid position
-                    for (let offset = 50; offset < 200; offset += 50) {
-                        const directions = [
-                            [this.targetX + offset, this.targetY],
-                            [this.targetX - offset, this.targetY],
-                            [this.targetX, this.targetY + offset],
-                            [this.targetX, this.targetY - offset],
-                        ];
-                        for (const [tx, ty] of directions) {
-                            if (!this.isColliding(tx, ty) && 
-                                tx >= this.floorArea.minX && tx <= this.floorArea.maxX - 50 &&
-                                ty >= this.floorArea.minY && ty <= this.floorArea.maxY - 50) {
-                                this.targetX = tx;
-                                this.targetY = ty;
-                                break;
-                            }
-                        }
-                        if (!this.isColliding(this.targetX, this.targetY)) break;
-                    }
-                }
-                
-                const currentX = parseFloat(this.robot.style.left) || this.floorArea.minX;
-                const currentY = parseFloat(this.robot.style.top) || this.floorArea.minY;
-                
-                const dx = this.targetX - currentX;
-                const dy = this.targetY - currentY;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                
-                if (distance > 5) {
-                    const speed = this.minSpeed + Math.random() * (this.maxSpeed - this.minSpeed);
-                    this.speedX = (dx / distance) * speed;
-                    this.speedY = (dy / distance) * speed;
-                    this.isIdling = false;
-                    this.robot.classList.remove('idling');
-                    this.robot.classList.add('moving');
-                }
-            }
-
-            startIdle() {
-                if (Math.random() < 0.4) {
-                    // Idle in place
-                    this.idleTime = 2000 + Math.random() * 4000;
-                    this.isIdling = true;
-                    this.speedX = 0;
-                    this.speedY = 0;
-                    this.targetX = null;
-                    this.targetY = null;
-                    this.robot.classList.remove('moving');
-                    this.robot.classList.add('idling');
-                } else {
-                    // Pick a random destination on the floor
-                    let x, y, valid = false;
-                    let attempts = 0;
-                    
-                    while (!valid && attempts < 30) {
-                        x = this.floorArea.minX + Math.random() * (this.floorArea.maxX - this.floorArea.minX);
-                        y = this.floorArea.minY + Math.random() * (this.floorArea.maxY - this.floorArea.minY);
-                        valid = !this.isColliding(x, y);
-                        attempts++;
-                    }
-                    
-                    if (valid) {
-                        this.setTarget(x, y);
-                    } else {
-                        this.startIdle();
-                    }
-                }
-            }
-
             update() {
-                if (this.paused) {
-                    requestAnimationFrame(() => this.update());
-                    return;
-                }
+                // Calculate distance to center
+                const dx = this.centerX - this.currentX;
+                const dy = this.centerY - this.currentY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
 
-                let currentX = parseFloat(this.robot.style.left) || this.floorArea.minX;
-                let currentY = parseFloat(this.robot.style.top) || this.floorArea.minY;
-
-                if (this.isIdling) {
-                    this.idleTime -= 16;
-                    if (this.idleTime <= 0) {
-                        this.startIdle();
-                    }
-                } else if (this.targetX !== null && this.targetY !== null) {
-                    const dx = this.targetX - currentX;
-                    const dy = this.targetY - currentY;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 15) {
-                        // Reached target, start idling
-                        this.startIdle();
-                    } else {
-                        // Move towards target with collision avoidance
-                        let newX = currentX + this.speedX;
-                        let newY = currentY + this.speedY;
-                        
-                        // Simple collision avoidance - if would collide, try to go around
-                        if (this.isColliding(newX, newY)) {
-                            // Try moving only in X or only in Y
-                            if (!this.isColliding(newX, currentY)) {
-                                newY = currentY;
-                            } else if (!this.isColliding(currentX, newY)) {
-                                newX = currentX;
-                            } else {
-                                // Can't move, change direction
-                                this.startIdle();
-                                requestAnimationFrame(() => this.update());
-                                return;
-                            }
-                        }
-                        
-                        // Keep within bounds
-                        newX = Math.max(this.floorArea.minX, Math.min(this.floorArea.maxX - 50, newX));
-                        newY = Math.max(this.floorArea.minY, Math.min(this.floorArea.maxY - 50, newY));
-                        
-                        currentX = newX;
-                        currentY = newY;
-                    }
+                // Apply spring force towards center
+                if (distance > 5) {
+                    this.velocityX += dx * this.springStrength;
+                    this.velocityY += dy * this.springStrength;
                 } else {
-                    this.startIdle();
+                    // Apply damping when close to center
+                    this.velocityX *= this.damping;
+                    this.velocityY *= this.damping;
                 }
 
-                this.robot.style.left = Math.round(currentX) + 'px';
-                this.robot.style.top = Math.round(currentY) + 'px';
+                // Apply velocity
+                this.currentX += this.velocityX;
+                this.currentY += this.velocityY;
+
+                // Apply damping to velocity
+                this.velocityX *= this.damping;
+                this.velocityY *= this.damping;
+
+                // Update position
+                this.bubble.style.left = this.currentX - 60 + 'px'; // Center the bubble (60px is half of 120px)
+                this.bubble.style.top = this.currentY - 60 + 'px';
 
                 requestAnimationFrame(() => this.update());
             }
 
-            pause() {
-                this.paused = true;
-                this.robot.classList.remove('moving', 'idling');
-                this.robot.classList.add('paused');
-            }
-
-            resume() {
-                this.paused = false;
-                this.startIdle();
-            }
-
-            changeDirection() {
-                this.startIdle();
-            }
-
-            updateObstacles() {
-                this.obstacles = [
-                    { x: window.innerWidth * 0.12, y: window.innerHeight * 0.80, width: 120, height: 100 },
-                    { x: window.innerWidth * 0.35, y: window.innerHeight * 0.75, width: 120, height: 100 },
-                    { x: window.innerWidth * 0.53, y: window.innerHeight * 0.75, width: 120, height: 100 },
-                    { x: window.innerWidth * 0.76, y: window.innerHeight * 0.80, width: 120, height: 100 },
-                ];
+            reset() {
+                // Add some random initial velocity
+                this.velocityX = (Math.random() - 0.5) * 2;
+                this.velocityY = (Math.random() - 0.5) * 2;
             }
         }
 
-        let mailRobot, calendarRobot;
+        let mailBubble, calendarBubble;
 
-        function initRobots() {
-            mailRobot = new OfficeRobot(document.getElementById('mailRobot'), 0.3, 0.7);
-            calendarRobot = new OfficeRobot(document.getElementById('calendarRobot'), 0.25, 0.65);
+        function initBubbles() {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+
+            // Initialize bubbles with slight offset
+            const mailBubbleEl = document.getElementById('mailBubble');
+            const calendarBubbleEl = document.getElementById('calendarBubble');
             
+            mailBubbleEl.style.left = centerX - 200 + 'px';
+            mailBubbleEl.style.top = centerY + 'px';
+            mailBubbleEl.classList.add('moving');
+            
+            calendarBubbleEl.style.left = centerX + 200 + 'px';
+            calendarBubbleEl.style.top = centerY + 'px';
+            calendarBubbleEl.classList.add('moving');
+
+            mailBubble = new BubbleGravity(mailBubbleEl, centerX - 100, centerY);
+            calendarBubble = new BubbleGravity(calendarBubbleEl, centerX + 100, centerY);
+
             window.addEventListener('resize', () => {
-                if (mailRobot) {
-                    mailRobot.floorArea = {
-                        minX: 100,
-                        maxX: window.innerWidth - 150,
-                        minY: window.innerHeight * 0.4,
-                        maxY: window.innerHeight - 100
-                    };
-                    mailRobot.updateObstacles();
+                const newCenterX = window.innerWidth / 2;
+                const newCenterY = window.innerHeight / 2;
+                if (mailBubble) {
+                    mailBubble.centerX = newCenterX - 100;
+                    mailBubble.centerY = newCenterY;
                 }
-                if (calendarRobot) {
-                    calendarRobot.floorArea = {
-                        minX: 100,
-                        maxX: window.innerWidth - 150,
-                        minY: window.innerHeight * 0.4,
-                        maxY: window.innerHeight - 100
-                    };
-                    calendarRobot.updateObstacles();
+                if (calendarBubble) {
+                    calendarBubble.centerX = newCenterX + 100;
+                    calendarBubble.centerY = newCenterY;
                 }
-            });
-
-            document.getElementById('mailRobot').addEventListener('mouseenter', () => {
-                mailRobot.pause();
-            });
-            document.getElementById('mailRobot').addEventListener('mouseleave', () => {
-                mailRobot.resume();
-            });
-
-            document.getElementById('calendarRobot').addEventListener('mouseenter', () => {
-                calendarRobot.pause();
-            });
-            document.getElementById('calendarRobot').addEventListener('mouseleave', () => {
-                calendarRobot.resume();
             });
         }
 
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initRobots);
+            document.addEventListener('DOMContentLoaded', initBubbles);
         } else {
-            initRobots();
+            initBubbles();
         }
 
         function handleMailAgent(event) {
             event.preventDefault();
-            if (mailRobot) {
-                mailRobot.changeDirection();
+            if (mailBubble) {
+                mailBubble.reset();
             }
             console.log('Mail agent clicked');
         }
 
         function handleCalendarAgent(event) {
             event.preventDefault();
-            if (calendarRobot) {
-                calendarRobot.changeDirection();
+            if (calendarBubble) {
+                calendarBubble.reset();
             }
             console.log('Calendar agent clicked');
         }
