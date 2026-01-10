@@ -48,21 +48,23 @@
             position: absolute;
             width: 120px;
             height: 120px;
-            border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3rem;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            transition: box-shadow 0.2s ease;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
             z-index: 5;
             backdrop-filter: blur(10px);
             border: 2px solid rgba(255, 255, 255, 0.3);
+            /* Amorphous blob shape using clip-path */
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            transition: border-radius 0.3s ease;
         }
 
         .bubble:hover {
-            transform: scale(1.1);
             box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
         }
 
@@ -126,6 +128,20 @@
     </div>
 
     <script>
+        // Track cursor position
+        let cursorX = 0;
+        let cursorY = 0;
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            cursorX = e.clientX;
+            cursorY = e.clientY;
+            // Smooth cursor tracking for better visual effect
+            mouseX += (cursorX - mouseX) * 0.1;
+            mouseY += (cursorY - mouseY) * 0.1;
+        });
+
         class BubbleGravity {
             constructor(bubbleElement, centerX, centerY) {
                 this.bubble = bubbleElement;
@@ -136,9 +152,39 @@
                 this.velocityX = 0;
                 this.velocityY = 0;
                 this.gravity = 0.02;
-                this.damping = 0.95;
-                this.springStrength = 0.05;
+                this.damping = 0.96;
+                this.springStrength = 0.04;
+                this.repulsionStrength = 0.08;
+                this.repulsionDistance = 150; // Distance at which repulsion starts
+                
+                // Blob shape parameters
+                this.blobOffsetX = 0;
+                this.blobOffsetY = 0;
+                this.blobRadius = 50;
+                this.time = Math.random() * Math.PI * 2; // Random starting phase
                 this.update();
+            }
+
+            generateBlobPath(cursorProximity = 0) {
+                const baseRadius = 50;
+                const deformationStrength = 8 + cursorProximity * 15; // More deformation near cursor
+                const numPoints = 8;
+                const points = [];
+                
+                this.time += 0.02;
+                
+                for (let i = 0; i < numPoints; i++) {
+                    const angle = (i / numPoints) * Math.PI * 2;
+                    const radiusVariation = Math.sin(this.time + angle * 2) * deformationStrength;
+                    const radiusVariation2 = Math.cos(this.time * 0.7 + angle * 3) * deformationStrength * 0.5;
+                    const radius = baseRadius + radiusVariation + radiusVariation2;
+                    
+                    const x = 50 + Math.cos(angle) * radius;
+                    const y = 50 + Math.sin(angle) * radius;
+                    points.push(`${x}% ${y}%`);
+                }
+                
+                return `polygon(${points.join(', ')})`;
             }
 
             update() {
@@ -151,10 +197,20 @@
                 if (distance > 5) {
                     this.velocityX += dx * this.springStrength;
                     this.velocityY += dy * this.springStrength;
-                } else {
-                    // Apply damping when close to center
-                    this.velocityX *= this.damping;
-                    this.velocityY *= this.damping;
+                }
+
+                // Calculate distance to cursor
+                const cursorDx = this.currentX - mouseX;
+                const cursorDy = this.currentY - mouseY;
+                const cursorDistance = Math.sqrt(cursorDx * cursorDx + cursorDy * cursorDy);
+
+                // Apply repulsion from cursor
+                if (cursorDistance < this.repulsionDistance && cursorDistance > 0) {
+                    const repulsionForce = (this.repulsionDistance - cursorDistance) / this.repulsionDistance;
+                    const normalizedDx = cursorDx / cursorDistance;
+                    const normalizedDy = cursorDy / cursorDistance;
+                    this.velocityX += normalizedDx * this.repulsionStrength * repulsionForce * repulsionForce;
+                    this.velocityY += normalizedDy * this.repulsionStrength * repulsionForce * repulsionForce;
                 }
 
                 // Apply velocity
@@ -166,16 +222,28 @@
                 this.velocityY *= this.damping;
 
                 // Update position
-                this.bubble.style.left = this.currentX - 60 + 'px'; // Center the bubble (60px is half of 120px)
+                this.bubble.style.left = this.currentX - 60 + 'px';
                 this.bubble.style.top = this.currentY - 60 + 'px';
+
+                // Update blob shape based on cursor proximity
+                const cursorProximity = Math.max(0, 1 - (cursorDistance / this.repulsionDistance));
+                const blobPath = this.generateBlobPath(cursorProximity);
+                this.bubble.style.clipPath = blobPath;
+                
+                // Also update border-radius for more organic feel
+                const radius1 = 30 + Math.sin(this.time) * 20 + cursorProximity * 20;
+                const radius2 = 70 - Math.sin(this.time) * 20 - cursorProximity * 20;
+                const radius3 = 70 + Math.cos(this.time) * 20 + cursorProximity * 20;
+                const radius4 = 30 - Math.cos(this.time) * 20 - cursorProximity * 20;
+                this.bubble.style.borderRadius = `${radius1}% ${radius2}% ${radius3}% ${radius4}% / ${radius4}% ${radius3}% ${radius2}% ${radius1}%`;
 
                 requestAnimationFrame(() => this.update());
             }
 
             reset() {
                 // Add some random initial velocity
-                this.velocityX = (Math.random() - 0.5) * 2;
-                this.velocityY = (Math.random() - 0.5) * 2;
+                this.velocityX = (Math.random() - 0.5) * 3;
+                this.velocityY = (Math.random() - 0.5) * 3;
             }
         }
 
