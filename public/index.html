@@ -58,10 +58,8 @@
             z-index: 5;
             backdrop-filter: blur(10px);
             border: 2px solid rgba(255, 255, 255, 0.3);
-            /* Amorphous blob shape using clip-path */
-            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            transition: border-radius 0.3s ease;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+            will-change: clip-path, transform;
         }
 
         .bubble:hover {
@@ -157,30 +155,57 @@
                 this.repulsionStrength = 0.08;
                 this.repulsionDistance = 150; // Distance at which repulsion starts
                 
-                // Blob shape parameters
-                this.blobOffsetX = 0;
-                this.blobOffsetY = 0;
+                // Blob shape parameters - more organic settings
                 this.blobRadius = 50;
                 this.time = Math.random() * Math.PI * 2; // Random starting phase
+                this.time2 = Math.random() * Math.PI * 2; // Secondary phase
+                this.time3 = Math.random() * Math.PI * 2; // Tertiary phase
+                
+                // Smoothed values for more natural morphing
+                this.smoothedVelocity = 0;
+                this.previousVelocities = [];
+                this.maxVelocityHistory = 5;
+                
                 this.update();
             }
 
-            generateBlobPath(cursorProximity = 0) {
+            generateBlobPath(cursorProximity = 0, velocityFactor = 0) {
+                // Use more points for smoother curves (16+ points look much more organic)
+                const numPoints = 20;
                 const baseRadius = 50;
-                const deformationStrength = 8 + cursorProximity * 15; // More deformation near cursor
-                const numPoints = 8;
                 const points = [];
                 
-                this.time += 0.02;
+                // Multiple time scales for natural morphing
+                this.time += 0.015;
+                this.time2 += 0.009;
+                this.time3 += 0.011;
                 
+                // Calculate deformation based on multiple factors
+                const baseDeformation = 5 + velocityFactor * 8;
+                const cursorDeformation = cursorProximity * 18;
+                const totalDeformation = baseDeformation + cursorDeformation;
+                
+                // Create natural blob with multiple wave frequencies
                 for (let i = 0; i < numPoints; i++) {
                     const angle = (i / numPoints) * Math.PI * 2;
-                    const radiusVariation = Math.sin(this.time + angle * 2) * deformationStrength;
-                    const radiusVariation2 = Math.cos(this.time * 0.7 + angle * 3) * deformationStrength * 0.5;
-                    const radius = baseRadius + radiusVariation + radiusVariation2;
                     
-                    const x = 50 + Math.cos(angle) * radius;
-                    const y = 50 + Math.sin(angle) * radius;
+                    // Multi-frequency organic wave (like Perlin noise but simpler)
+                    const wave1 = Math.sin(this.time + angle * 2.3) * totalDeformation;
+                    const wave2 = Math.cos(this.time2 * 0.7 + angle * 3.7) * totalDeformation * 0.6;
+                    const wave3 = Math.sin(this.time3 * 1.3 + angle * 5.1) * totalDeformation * 0.4;
+                    const wave4 = Math.cos(this.time * 0.5 + angle * 1.7) * totalDeformation * 0.3;
+                    
+                    // Add velocity-based stretching
+                    const stretch = velocityFactor * 6 * Math.cos(angle + Math.atan2(this.velocityY, this.velocityX));
+                    
+                    const radiusVariation = wave1 + wave2 + wave3 + wave4 + stretch;
+                    const radius = baseRadius + radiusVariation;
+                    
+                    // Clamp to prevent extreme deformations
+                    const clampedRadius = Math.max(35, Math.min(65, radius));
+                    
+                    const x = 50 + Math.cos(angle) * clampedRadius;
+                    const y = 50 + Math.sin(angle) * clampedRadius;
                     points.push(`${x}% ${y}%`);
                 }
                 
@@ -213,6 +238,18 @@
                     this.velocityY += normalizedDy * this.repulsionStrength * repulsionForce * repulsionForce;
                 }
 
+                // Track velocity history for smoothing
+                const currentSpeed = Math.sqrt(this.velocityX * this.velocityX + this.velocityY * this.velocityY);
+                this.previousVelocities.push(currentSpeed);
+                if (this.previousVelocities.length > this.maxVelocityHistory) {
+                    this.previousVelocities.shift();
+                }
+                const avgVelocity = this.previousVelocities.reduce((a, b) => a + b, 0) / this.previousVelocities.length;
+                
+                // Smooth velocity factor for blob deformation
+                this.smoothedVelocity += (avgVelocity - this.smoothedVelocity) * 0.1;
+                const velocityFactor = Math.min(1, this.smoothedVelocity / 3);
+
                 // Apply velocity
                 this.currentX += this.velocityX;
                 this.currentY += this.velocityY;
@@ -225,17 +262,10 @@
                 this.bubble.style.left = this.currentX - 60 + 'px';
                 this.bubble.style.top = this.currentY - 60 + 'px';
 
-                // Update blob shape based on cursor proximity
+                // Update blob shape based on cursor proximity and velocity
                 const cursorProximity = Math.max(0, 1 - (cursorDistance / this.repulsionDistance));
-                const blobPath = this.generateBlobPath(cursorProximity);
+                const blobPath = this.generateBlobPath(cursorProximity, velocityFactor);
                 this.bubble.style.clipPath = blobPath;
-                
-                // Also update border-radius for more organic feel
-                const radius1 = 30 + Math.sin(this.time) * 20 + cursorProximity * 20;
-                const radius2 = 70 - Math.sin(this.time) * 20 - cursorProximity * 20;
-                const radius3 = 70 + Math.cos(this.time) * 20 + cursorProximity * 20;
-                const radius4 = 30 - Math.cos(this.time) * 20 - cursorProximity * 20;
-                this.bubble.style.borderRadius = `${radius1}% ${radius2}% ${radius3}% ${radius4}% / ${radius4}% ${radius3}% ${radius2}% ${radius1}%`;
 
                 requestAnimationFrame(() => this.update());
             }
