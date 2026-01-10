@@ -12,121 +12,317 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #fafafa;
+            color: #1a1a1a;
             min-height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        /* Subtle background gradient */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            opacity: 0.6;
+            z-index: 0;
         }
 
         .container {
             position: relative;
             width: 100%;
-            height: 100vh;
+            max-width: 1200px;
+            min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            padding: 2rem;
+            z-index: 1;
         }
 
-        h1 {
-            position: absolute;
-            top: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 3rem;
+        /* Refined Logo */
+        .logo {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .logo h1 {
+            font-size: 3.5rem;
             font-weight: 300;
-            letter-spacing: -0.02em;
-            z-index: 10;
-            pointer-events: none;
+            letter-spacing: 0.1em;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
         }
 
-        .bubble {
+        .logo h1::after {
+            content: '';
             position: absolute;
-            width: 120px;
-            height: 120px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            transition: box-shadow 0.2s ease;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            z-index: 5;
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
-            will-change: clip-path, transform;
-        }
-
-        .bubble:hover {
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
-        }
-
-        .bubble:active {
-            transform: scale(0.95);
-        }
-
-        .mail-bubble {
-            background: rgba(255, 255, 255, 0.2);
-            left: 20%;
-            top: 30%;
-        }
-
-        .calendar-bubble {
-            background: rgba(255, 255, 255, 0.2);
-            right: 20%;
-            top: 30%;
-        }
-
-        .bubble-label {
-            position: absolute;
-            bottom: -35px;
+            bottom: -8px;
             left: 50%;
             transform: translateX(-50%);
-            font-size: 0.9rem;
-            font-weight: 500;
-            white-space: nowrap;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
         }
 
-        .bubble:hover .bubble-label {
+        .logo p {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #7f8c8d;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 1rem;
+        }
+
+        /* Options Container */
+        .options {
+            display: flex;
+            gap: 2rem;
+            width: 100%;
+            max-width: 800px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Option Cards */
+        .option-card {
+            position: relative;
+            flex: 1;
+            min-width: 280px;
+            max-width: 320px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .option-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            border-radius: 24px;
+        }
+
+        .option-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .option-card:hover::before {
             opacity: 1;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+        .option-card:active {
+            transform: translateY(-4px);
         }
 
-        .bubble.moving {
-            animation: float 3s ease-in-out infinite;
+        /* Mail Card */
+        .option-card.mail {
+            --accent-color: #667eea;
+        }
+
+        .option-card.mail::before {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(102, 126, 234, 0.05) 100%);
+        }
+
+        /* Calendar Card */
+        .option-card.calendar {
+            --accent-color: #f5576c;
+        }
+
+        .option-card.calendar::before {
+            background: linear-gradient(135deg, rgba(245, 87, 108, 0.1) 0%, rgba(245, 87, 108, 0.05) 100%);
+        }
+
+        /* Organic Blob Icon Container */
+        .icon-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .blob-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            position: relative;
+            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+            will-change: clip-path, transform;
+            transition: transform 0.3s ease;
+        }
+
+        .option-card.mail .blob-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .option-card.calendar .blob-icon {
+            background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+        }
+
+        .option-card:hover .blob-icon {
+            transform: scale(1.05);
+        }
+
+        /* Option Content */
+        .option-content {
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .option-title {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+
+        .option-description {
+            font-size: 0.95rem;
+            color: #7f8c8d;
+            line-height: 1.6;
+            max-width: 240px;
+        }
+
+        .option-cta {
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent-color);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .option-card:hover .option-cta {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo h1 {
+                font-size: 2.5rem;
+            }
+
+            .options {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .option-card {
+                max-width: 100%;
+            }
+        }
+
+        /* Subtle animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .option-card {
+            animation: fadeInUp 0.6s ease-out backwards;
+        }
+
+        .option-card.mail {
+            animation-delay: 0.1s;
+        }
+
+        .option-card.calendar {
+            animation-delay: 0.2s;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Daiwas</h1>
-        
-        <div class="bubble mail-bubble" id="mailBubble" onclick="handleMailAgent(event)">
-            ✉️
-            <div class="bubble-label">Mail Agent</div>
+        <div class="logo">
+            <h1>DAIWAS</h1>
+            <p>Your AI Assistant</p>
         </div>
+        
+        <div class="options">
+            <div class="option-card mail" id="mailCard" onclick="handleMailAgent(event)">
+                <div class="icon-container">
+                    <div class="blob-icon" id="mailBlob">
+                        ✉️
+                    </div>
+                </div>
+                <div class="option-content">
+                    <h2 class="option-title">Mail Agent</h2>
+                    <p class="option-description">
+                        Manage your emails with intelligent assistance and automation
+                    </p>
+                    <div class="option-cta">Get Started →</div>
+                </div>
+            </div>
 
-        <div class="bubble calendar-bubble" id="calendarBubble" onclick="handleCalendarAgent(event)">
-            📅
-            <div class="bubble-label">Calendar Agent</div>
+            <div class="option-card calendar" id="calendarCard" onclick="handleCalendarAgent(event)">
+                <div class="icon-container">
+                    <div class="blob-icon" id="calendarBlob">
+                        📅
+                    </div>
+                </div>
+                <div class="option-content">
+                    <h2 class="option-title">Calendar Agent</h2>
+                    <p class="option-description">
+                        Organize your schedule with smart calendar management
+                    </p>
+                    <div class="option-cta">Get Started →</div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // Track cursor position
+        // Track cursor position for blob reactivity
         let cursorX = 0;
         let cursorY = 0;
         let mouseX = 0;
@@ -135,74 +331,43 @@
         document.addEventListener('mousemove', (e) => {
             cursorX = e.clientX;
             cursorY = e.clientY;
-            // Smooth cursor tracking for better visual effect
-            mouseX += (cursorX - mouseX) * 0.1;
-            mouseY += (cursorY - mouseY) * 0.1;
+            mouseX += (cursorX - mouseX) * 0.08;
+            mouseY += (cursorY - mouseY) * 0.08;
         });
 
-        class BubbleGravity {
-            constructor(bubbleElement, centerX, centerY) {
-                this.bubble = bubbleElement;
-                this.centerX = centerX;
-                this.centerY = centerY;
-                this.currentX = parseFloat(bubbleElement.style.left) || window.innerWidth / 4;
-                this.currentY = parseFloat(bubbleElement.style.top) || window.innerHeight / 4;
-                this.velocityX = 0;
-                this.velocityY = 0;
-                this.gravity = 0.02;
-                this.damping = 0.96;
-                this.springStrength = 0.04;
-                this.repulsionStrength = 0.08;
-                this.repulsionDistance = 150; // Distance at which repulsion starts
-                
-                // Blob shape parameters - more organic settings
-                this.blobRadius = 50;
-                this.time = Math.random() * Math.PI * 2; // Random starting phase
-                this.time2 = Math.random() * Math.PI * 2; // Secondary phase
-                this.time3 = Math.random() * Math.PI * 2; // Tertiary phase
-                
-                // Smoothed values for more natural morphing
-                this.smoothedVelocity = 0;
-                this.previousVelocities = [];
-                this.maxVelocityHistory = 5;
-                
+        class OrganicBlob {
+            constructor(blobElement, cardElement) {
+                this.blob = blobElement;
+                this.card = cardElement;
+                this.time = Math.random() * Math.PI * 2;
+                this.time2 = Math.random() * Math.PI * 2;
+                this.time3 = Math.random() * Math.PI * 2;
                 this.update();
             }
 
-            generateBlobPath(cursorProximity = 0, velocityFactor = 0) {
-                // Use more points for smoother curves (16+ points look much more organic)
-                const numPoints = 20;
+            generateBlobPath(cursorProximity = 0) {
+                const numPoints = 24;
                 const baseRadius = 50;
                 const points = [];
                 
-                // Multiple time scales for natural morphing
-                this.time += 0.015;
-                this.time2 += 0.009;
-                this.time3 += 0.011;
+                // Subtle organic morphing
+                this.time += 0.008;
+                this.time2 += 0.006;
+                this.time3 += 0.007;
                 
-                // Calculate deformation based on multiple factors
-                const baseDeformation = 5 + velocityFactor * 8;
-                const cursorDeformation = cursorProximity * 18;
-                const totalDeformation = baseDeformation + cursorDeformation;
+                const deformation = 3 + cursorProximity * 8;
                 
-                // Create natural blob with multiple wave frequencies
                 for (let i = 0; i < numPoints; i++) {
                     const angle = (i / numPoints) * Math.PI * 2;
                     
-                    // Multi-frequency organic wave (like Perlin noise but simpler)
-                    const wave1 = Math.sin(this.time + angle * 2.3) * totalDeformation;
-                    const wave2 = Math.cos(this.time2 * 0.7 + angle * 3.7) * totalDeformation * 0.6;
-                    const wave3 = Math.sin(this.time3 * 1.3 + angle * 5.1) * totalDeformation * 0.4;
-                    const wave4 = Math.cos(this.time * 0.5 + angle * 1.7) * totalDeformation * 0.3;
+                    const wave1 = Math.sin(this.time + angle * 2.1) * deformation;
+                    const wave2 = Math.cos(this.time2 * 0.6 + angle * 3.5) * deformation * 0.5;
+                    const wave3 = Math.sin(this.time3 * 1.2 + angle * 4.8) * deformation * 0.3;
                     
-                    // Add velocity-based stretching
-                    const stretch = velocityFactor * 6 * Math.cos(angle + Math.atan2(this.velocityY, this.velocityX));
-                    
-                    const radiusVariation = wave1 + wave2 + wave3 + wave4 + stretch;
+                    const radiusVariation = wave1 + wave2 + wave3;
                     const radius = baseRadius + radiusVariation;
                     
-                    // Clamp to prevent extreme deformations
-                    const clampedRadius = Math.max(35, Math.min(65, radius));
+                    const clampedRadius = Math.max(45, Math.min(55, radius));
                     
                     const x = 50 + Math.cos(angle) * clampedRadius;
                     const y = 50 + Math.sin(angle) * clampedRadius;
@@ -213,125 +378,61 @@
             }
 
             update() {
-                // Calculate distance to center
-                const dx = this.centerX - this.currentX;
-                const dy = this.centerY - this.currentY;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                // Apply spring force towards center
-                if (distance > 5) {
-                    this.velocityX += dx * this.springStrength;
-                    this.velocityY += dy * this.springStrength;
-                }
-
-                // Calculate distance to cursor
-                const cursorDx = this.currentX - mouseX;
-                const cursorDy = this.currentY - mouseY;
-                const cursorDistance = Math.sqrt(cursorDx * cursorDx + cursorDy * cursorDy);
-
-                // Apply repulsion from cursor
-                if (cursorDistance < this.repulsionDistance && cursorDistance > 0) {
-                    const repulsionForce = (this.repulsionDistance - cursorDistance) / this.repulsionDistance;
-                    const normalizedDx = cursorDx / cursorDistance;
-                    const normalizedDy = cursorDy / cursorDistance;
-                    this.velocityX += normalizedDx * this.repulsionStrength * repulsionForce * repulsionForce;
-                    this.velocityY += normalizedDy * this.repulsionStrength * repulsionForce * repulsionForce;
-                }
-
-                // Track velocity history for smoothing
-                const currentSpeed = Math.sqrt(this.velocityX * this.velocityX + this.velocityY * this.velocityY);
-                this.previousVelocities.push(currentSpeed);
-                if (this.previousVelocities.length > this.maxVelocityHistory) {
-                    this.previousVelocities.shift();
-                }
-                const avgVelocity = this.previousVelocities.reduce((a, b) => a + b, 0) / this.previousVelocities.length;
+                // Get blob position
+                const rect = this.blob.getBoundingClientRect();
+                const blobCenterX = rect.left + rect.width / 2;
+                const blobCenterY = rect.top + rect.height / 2;
                 
-                // Smooth velocity factor for blob deformation
-                this.smoothedVelocity += (avgVelocity - this.smoothedVelocity) * 0.1;
-                const velocityFactor = Math.min(1, this.smoothedVelocity / 3);
-
-                // Apply velocity
-                this.currentX += this.velocityX;
-                this.currentY += this.velocityY;
-
-                // Apply damping to velocity
-                this.velocityX *= this.damping;
-                this.velocityY *= this.damping;
-
-                // Update position
-                this.bubble.style.left = this.currentX - 60 + 'px';
-                this.bubble.style.top = this.currentY - 60 + 'px';
-
-                // Update blob shape based on cursor proximity and velocity
-                const cursorProximity = Math.max(0, 1 - (cursorDistance / this.repulsionDistance));
-                const blobPath = this.generateBlobPath(cursorProximity, velocityFactor);
-                this.bubble.style.clipPath = blobPath;
-
+                // Calculate distance to cursor
+                const cursorDx = blobCenterX - mouseX;
+                const cursorDy = blobCenterY - mouseY;
+                const cursorDistance = Math.sqrt(cursorDx * cursorDx + cursorDy * cursorDy);
+                
+                // Check if cursor is near this blob's card
+                const cardRect = this.card.getBoundingClientRect();
+                const isHovering = mouseX >= cardRect.left && mouseX <= cardRect.right &&
+                                 mouseY >= cardRect.top && mouseY <= cardRect.bottom;
+                
+                const maxDistance = 300;
+                const cursorProximity = isHovering ? Math.max(0, 1 - (cursorDistance / maxDistance)) : 0;
+                
+                // Update blob shape
+                const blobPath = this.generateBlobPath(cursorProximity);
+                this.blob.style.clipPath = blobPath;
+                
                 requestAnimationFrame(() => this.update());
-            }
-
-            reset() {
-                // Add some random initial velocity
-                this.velocityX = (Math.random() - 0.5) * 3;
-                this.velocityY = (Math.random() - 0.5) * 3;
             }
         }
 
-        let mailBubble, calendarBubble;
+        // Initialize blobs
+        let mailBlob, calendarBlob;
 
-        function initBubbles() {
-            const centerX = window.innerWidth / 2;
-            const centerY = window.innerHeight / 2;
-
-            // Initialize bubbles with slight offset
-            const mailBubbleEl = document.getElementById('mailBubble');
-            const calendarBubbleEl = document.getElementById('calendarBubble');
+        function initBlobs() {
+            const mailBlobEl = document.getElementById('mailBlob');
+            const calendarBlobEl = document.getElementById('calendarBlob');
+            const mailCard = document.getElementById('mailCard');
+            const calendarCard = document.getElementById('calendarCard');
             
-            mailBubbleEl.style.left = centerX - 200 + 'px';
-            mailBubbleEl.style.top = centerY + 'px';
-            mailBubbleEl.classList.add('moving');
-            
-            calendarBubbleEl.style.left = centerX + 200 + 'px';
-            calendarBubbleEl.style.top = centerY + 'px';
-            calendarBubbleEl.classList.add('moving');
-
-            mailBubble = new BubbleGravity(mailBubbleEl, centerX - 100, centerY);
-            calendarBubble = new BubbleGravity(calendarBubbleEl, centerX + 100, centerY);
-
-            window.addEventListener('resize', () => {
-                const newCenterX = window.innerWidth / 2;
-                const newCenterY = window.innerHeight / 2;
-                if (mailBubble) {
-                    mailBubble.centerX = newCenterX - 100;
-                    mailBubble.centerY = newCenterY;
-                }
-                if (calendarBubble) {
-                    calendarBubble.centerX = newCenterX + 100;
-                    calendarBubble.centerY = newCenterY;
-                }
-            });
+            mailBlob = new OrganicBlob(mailBlobEl, mailCard);
+            calendarBlob = new OrganicBlob(calendarBlobEl, calendarCard);
         }
 
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initBubbles);
+            document.addEventListener('DOMContentLoaded', initBlobs);
         } else {
-            initBubbles();
+            initBlobs();
         }
 
         function handleMailAgent(event) {
             event.preventDefault();
-            if (mailBubble) {
-                mailBubble.reset();
-            }
-            console.log('Mail agent clicked');
+            console.log('Mail agent selected');
+            // Add navigation or action here
         }
 
         function handleCalendarAgent(event) {
             event.preventDefault();
-            if (calendarBubble) {
-                calendarBubble.reset();
-            }
-            console.log('Calendar agent clicked');
+            console.log('Calendar agent selected');
+            // Add navigation or action here
         }
     </script>
 </body>
